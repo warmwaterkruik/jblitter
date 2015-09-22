@@ -31,7 +31,9 @@
       'frameHeight':100,
       'reverse':true,
       'loop':false,
-      'callback':null
+      'callback':null,
+      'autoStart':false,
+      'endCallback':null
     };
     
     return this.each(function(){
@@ -74,6 +76,9 @@
               }else{
                 clearInterval(interval);
               }
+                if (opts.endCallback) {
+                    opts.endCallback.apply($canvas);
+                }
             }
 
             if (curCol > numCols){
@@ -127,6 +132,10 @@
             }
           });            
             updateCanvas();
+
+          if (opts.autoStart) {
+              $(canvas).trigger('mouseover');
+          }
       };
       resource.src = opts.resource;
     });
